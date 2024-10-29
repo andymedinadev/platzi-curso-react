@@ -3,7 +3,6 @@ import { TodoCounter } from './TodoCounter'
 import { TodoItem } from './TodoItem'
 import { TodoList } from './TodoList'
 import { TodoSearch } from './TodoSearch'
-import './App.css'
 
 const defaultTodos = [
   { text: 'Cortar cebolla', completed: true },
