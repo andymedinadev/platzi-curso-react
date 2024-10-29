@@ -1,8 +1,8 @@
-export function TodoItem () {
+export function TodoItem ({ text, completed }) {
   return (
     <li>
-      <span>V</span>
-      <p>Llorar con la Llorona</p>
+      <span>V {completed} </span>
+      <p>{text}</p>
       <span>X</span>
     </li>
   )
