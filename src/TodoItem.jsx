@@ -1,10 +1,11 @@
 import './TodoItem.css'
 
-export function TodoItem ({ text, completed }) {
+export function TodoItem ({ text, completed, onComplete, onDelete }) {
   return (
     <li className='TodoItem'>
       <span
         className={`Icon Icon-check ${completed ? 'Icon-check--active' : ''}`}
+        onClick={onComplete}
       >
         V {completed}
       </span>
@@ -13,7 +14,12 @@ export function TodoItem ({ text, completed }) {
       >
         {text}
       </p>
-      <span className='Icon Icon-delete'>X</span>
+      <span
+        className='Icon Icon-delete'
+        onClick={onDelete}
+      >
+        X
+      </span>
     </li>
   )
 }
