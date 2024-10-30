@@ -5,19 +5,30 @@ import { TodoItem } from './TodoItem'
 import { TodoList } from './TodoList'
 import { TodoSearch } from './TodoSearch'
 
-function App () {
-  const storageTodos = JSON.parse(localStorage.getItem('TODOS_V1'))
+function useLocalStorage (itemName, initialValue) {
+  const storageItems = JSON.parse(localStorage.getItem(itemName))
 
-  let parsedTodos
+  let parsedItems
 
-  if (!storageTodos) {
-    localStorage.setItem('TODOS_V1', '[]')
-    parsedTodos = []
+  if (!storageItems) {
+    localStorage.setItem(itemName, initialValue)
+    parsedItems = initialValue
   } else {
-    parsedTodos = storageTodos
+    parsedItems = storageItems
   }
 
-  const [todos, setTodos] = useState(parsedTodos)
+  const [items, setItems] = useState(parsedItems)
+
+  const saveItems = (newItems) => {
+    localStorage.setItem(itemName, JSON.stringify(newItems))
+    setItems(newItems)
+  }
+
+  return [items, saveItems]
+}
+
+function App () {
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', [])
   const [searchValue, setSearchValue] = useState('')
 
   const totalTodos = todos.length
@@ -30,16 +41,11 @@ function App () {
     return todoText.includes(searchText)
   })
 
-  const persistTodos = (newTodos) => {
-    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos))
-    setTodos(newTodos)
-  }
-
   const strikeTodo = (text) => {
     const newTodos = [...todos]
     const todoIndex = newTodos.findIndex(todo => todo.text === text)
     newTodos[todoIndex].completed = true
-    persistTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   const deleteTodo = (text) => {
@@ -47,7 +53,7 @@ function App () {
     const todoIndex = newTodos.findIndex(todo => todo.text === text)
     newTodos[todoIndex].completed = true
     newTodos.splice(todoIndex, 1)
-    persistTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   return (
