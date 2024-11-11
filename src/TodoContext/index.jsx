@@ -6,6 +6,7 @@ export const TodoContext = createContext()
 export function TodoProvider ({ children }) {
   const { items: todos, saveItems: saveTodos, loading, error } = useLocalStorage('TODOS_V1', '[]')
   const [searchValue, setSearchValue] = useState('')
+  const [openModal, setOpenModal] = useState(true)
 
   const totalTodos = todos.length
 
@@ -42,7 +43,9 @@ export function TodoProvider ({ children }) {
       strikeTodo,
       deleteTodo,
       loading,
-      error
+      error,
+      openModal,
+      setOpenModal
     }}
     >
       {children}

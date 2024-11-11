@@ -1,13 +1,10 @@
 import './CreateTodoButton.css'
 
-export function CreateTodoButton () {
+export function CreateTodoButton ({ setOpenModal }) {
   return (
     <button
       className='CreateTodoButton'
-      onClick={event => {
-        console.log('Clicked!')
-        console.log(event.target)
-      }}
+      onClick={() => setOpenModal(state => !state)}
     >
       +
     </button>
