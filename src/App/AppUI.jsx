@@ -7,6 +7,7 @@ import { TodoList } from '../TodoList'
 import { TodoSearch } from '../TodoSearch'
 import { TodosLoading } from '../TodosLoading'
 import { Modal } from '../Modal'
+import { TodoForm } from '../TodoForm'
 
 export function AppUI () {
   const { loading, error, searchedTodos, strikeTodo, deleteTodo, openModal, setOpenModal } = useContext(TodoContext)
@@ -44,7 +45,7 @@ export function AppUI () {
 
       {openModal && (
         <Modal>
-          Modal de prueba
+          <TodoForm />
         </Modal>
       )}
     </>

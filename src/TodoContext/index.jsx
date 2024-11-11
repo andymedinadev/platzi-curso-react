@@ -6,7 +6,7 @@ export const TodoContext = createContext()
 export function TodoProvider ({ children }) {
   const { items: todos, saveItems: saveTodos, loading, error } = useLocalStorage('TODOS_V1', '[]')
   const [searchValue, setSearchValue] = useState('')
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
 
   const totalTodos = todos.length
 
@@ -17,6 +17,15 @@ export function TodoProvider ({ children }) {
     const searchText = searchValue.toLocaleLowerCase()
     return todoText.includes(searchText)
   })
+
+  const addTodo = (text) => {
+    const newTodos = [...todos]
+    newTodos.push({
+      text,
+      completed: false
+    })
+    saveTodos(newTodos)
+  }
 
   const strikeTodo = (text) => {
     const newTodos = [...todos]
@@ -40,6 +49,7 @@ export function TodoProvider ({ children }) {
       searchValue,
       setSearchValue,
       searchedTodos,
+      addTodo,
       strikeTodo,
       deleteTodo,
       loading,
